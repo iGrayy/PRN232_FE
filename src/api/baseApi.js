@@ -1,10 +1,17 @@
-// src/api/baseApi.js
-import axios from 'axios';
-
-console.log('⛔ VITE_API_URL =', import.meta.env.VITE_API_URL);
+// baseApi.js
+import axios from "axios";
 
 const baseApi = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
+  baseURL: "https://localhost:7102", // cập nhật baseURL nếu khác
+});
+
+// Add token to every request
+baseApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem("tokenA");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export default baseApi;

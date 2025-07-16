@@ -7,12 +7,14 @@ import { FaHome } from 'react-icons/fa';
 import FloatingInput from '../../components/input/FloatingInput';
 import baseApi from '../../api/baseApi';
 import API_PATHS from '../../api/apiPaths';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../redux/authSlice';
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [creds, setCreds] = useState({ userName: '', password: '' });
   const [error, setError] = useState('');
-
+  const dispatch = useDispatch();
   const handleChange = e =>
     setCreds({ ...creds, [e.target.name]: e.target.value });
 
@@ -20,14 +22,20 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const { data } = await baseApi.post(API_PATHS.LOGIN, creds);
-      const token = data.result?.accessToken || data.token;
-      if (token) {
-        localStorage.setItem('tokenA', token);
+      const result = data.result;
+      console.log(result.user,"test");
+      
+
+      if (result?.accessToken) {
+        dispatch(loginSuccess(result));
+        localStorage.setItem('tokenA', result.accessToken);
         toast.success('Đăng nhập thành công!');
         navigate('/');
+      } else {
+        throw new Error('Thiếu accessToken trong phản hồi');
       }
     } catch (err) {
-      const msg = err.response?.data?.message || 'Đăng nhập thất bại';
+      const msg = err.response?.data?.message || err.message || 'Đăng nhập thất bại';
       setError(msg);
       toast.error(msg);
     }

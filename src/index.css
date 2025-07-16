@@ -61,7 +61,9 @@
 .container {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -74,4 +76,11 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
 }
