@@ -3,9 +3,9 @@ import baseApi from './baseApi';
 import API_PATHS from './apiPaths';
 
 // Lấy record hiện tại
-export const getCurrentSmokingRecord = (customerId) => {
+export const getCurrentSmokingRecord = () => {
   return baseApi
-    .get(API_PATHS.SMOKING_RECORD_CURRENT(customerId))
+    .get(API_PATHS.SMOKING_RECORD_CURRENT)
     .then((res) => res.data.result ?? res.data);
 };
 

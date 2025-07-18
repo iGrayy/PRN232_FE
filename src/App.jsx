@@ -8,7 +8,8 @@ import PlanPage from './pages/PlanPage';
 import LoginPage from './pages/Auth/LoginPage';
 import RegisterPage from './pages/Auth/RegisterPage';
 import ProfilePage from './pages/Auth/ProfilePage';
-import AppToaster from './components/ui/toast';  // ✅ Import toast component
+import PaymentSuccess from './components/PaymentSuccess';
+import AppToaster from './components/ui/toast';
 import './App.css';
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/plan" element={<PlanPage />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AnimatePresence>
